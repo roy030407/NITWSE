@@ -10,4 +10,6 @@ services:
       - key: MONGODB_URI
         sync: false
       - key: FLASK_ENV
-        value: production 
+        value: production
+      - key: PORT
+        value: 10000 

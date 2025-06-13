@@ -1,11 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import request, jsonify
 from pymongo import MongoClient
-from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)
-
-# Connect to MongoDB Atlas (replace <db_password> with your actual password)
+# Connect to MongoDB Atlas
 client = MongoClient("mongodb+srv://nitwse:mayankthegoat@wse.0zosyhw.mongodb.net/?retryWrites=true&w=majority&appName=WSE")
 db = client["nitwse"]
 users = db["users"]
@@ -17,7 +13,6 @@ def get_next_user_id():
         return highest_user["userId"] + 1
     return 1001  # Start from 1001 if no users exist
 
-@app.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
     name = data.get("name")
@@ -45,7 +40,6 @@ def signup():
         "name": name
     }), 201
 
-@app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
     email = data.get("email")
@@ -60,6 +54,3 @@ def login():
             "name": user["name"]
         }), 200
     return jsonify({"message": "Invalid credentials", "success": False}), 401
-
-if __name__ == '__main__':
-    app.run(debug=True, port=5002)

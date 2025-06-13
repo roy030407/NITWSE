@@ -3,6 +3,10 @@ from flask_pymongo import PyMongo
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
+import sys
+
+# Add the current directory to Python path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 load_dotenv()
 
@@ -14,9 +18,9 @@ app.config["MONGO_URI"] = os.getenv("MONGODB_URI", "mongodb+srv://nitwse:mayankt
 mongo = PyMongo(app)
 
 # Import all routes
-from LoginHandle import signup, login
-from StockHandle import get_stocks, get_remaining_stocks
-from TransactionHandle import buy, sell, display
+from .LoginHandle import signup, login
+from .StockHandle import get_stocks, get_remaining_stocks
+from .TransactionHandle import buy, sell, display
 
 # Register all routes
 app.add_url_rule('/signup', 'signup', signup, methods=['POST'])

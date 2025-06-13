@@ -1,16 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import request, jsonify
 from flask_pymongo import PyMongo
-from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)
-
-# MongoDB Atlas URI (replace <db_password> with your actual password)
-app.config["MONGO_URI"] = "mongodb+srv://nitwse:mayankthegoat@wse.0zosyhw.mongodb.net/nitwse?retryWrites=true&w=majority&appName=WSE"
-
-mongo = PyMongo(app)
-
-def updateBalance(userID, updatedPrice):
+def updateBalance(mongo, userID, updatedPrice):
     temp = mongo.db.usertransactions.find_one({"userID": userID})
     if temp["balance"] + updatedPrice < 0:
         return False
@@ -21,8 +12,8 @@ def updateBalance(userID, updatedPrice):
         )
         return True
 
-def buyStock(userID, stockPrice, quantity, stockName):
-    if updateBalance(userID, -1 * stockPrice * quantity):
+def buyStock(mongo, userID, stockPrice, quantity, stockName):
+    if updateBalance(mongo, userID, -1 * stockPrice * quantity):
         mongo.db.usertransactions.update_one(
             {"userID": userID},
             {"$inc": {f"stocksOwned.{stockName}": quantity}}
@@ -30,20 +21,19 @@ def buyStock(userID, stockPrice, quantity, stockName):
         return True
     return False
 
-def sellStock(userID, stockPrice, quantity, stockName):
+def sellStock(mongo, userID, stockPrice, quantity, stockName):
     temp = mongo.db.usertransactions.find_one({"userID": userID})
     if stockName in temp["stocksOwned"] and temp["stocksOwned"][stockName] >= quantity:
         mongo.db.usertransactions.update_one(
             {"userID": userID},
             {"$inc": {f"stocksOwned.{stockName}": -quantity}}
         )
-        updateBalance(userID, stockPrice * quantity)
+        updateBalance(mongo, userID, stockPrice * quantity)
         return True
     else:
         return False
 
-@app.route('/buy', methods=['POST'])
-def buy():
+def buy(mongo):
     data = request.get_json()
     if not data:
         return jsonify({"status": "error", "message": "No JSON received"}), 400
@@ -71,8 +61,7 @@ def buy():
     else:
         return jsonify({"status": "failed", "message": "Invalid Transaction or Insufficient balance"})
 
-@app.route('/sell', methods=['POST'])
-def sell():
+def sell(mongo):
     data = request.get_json()
     if not data:
         return jsonify({"status": "error", "message": "No JSON received"}), 400
@@ -93,13 +82,12 @@ def sell():
     if quantity <= 0 or stockPrice <= 0:
         return jsonify({"status": "error", "message": "Quantity and stockPrice must be positive"}), 400
 
-    if sellStock(userID, stockPrice, quantity, stockName):
+    if sellStock(mongo, userID, stockPrice, quantity, stockName):
         return jsonify({"status": "success", "message": "Transaction Successful"})
     else:
         return jsonify({"status": "failed", "message": "Invalid Transaction"})
 
-@app.route('/import', methods=['GET'])
-def display():
+def display(mongo):
     userID = int(request.args.get("userID"))
     user = mongo.db.usertransactions.find_one({"userID": userID})
     if user:
@@ -112,6 +100,3 @@ def display():
             "error": "User not found",
             "stocks": {}
         }), 404
-
-if __name__ == "__main__":
-    app.run(debug=True)

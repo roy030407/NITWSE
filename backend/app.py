@@ -23,13 +23,13 @@ from backend.StockHandle import get_stocks, get_remaining_stocks
 from backend.TransactionHandle import buy, sell, display
 
 # Register all routes
-app.add_url_rule('/signup', 'signup', signup, methods=['POST'])
-app.add_url_rule('/login', 'login', login, methods=['POST'])
-app.add_url_rule('/get_stocks', 'get_stocks', get_stocks, methods=['GET'])
-app.add_url_rule('/get_remaining_stocks', 'get_remaining_stocks', get_remaining_stocks, methods=['GET'])
-app.add_url_rule('/buy', 'buy', buy, methods=['POST'])
-app.add_url_rule('/sell', 'sell', sell, methods=['POST'])
-app.add_url_rule('/import', 'display', display, methods=['GET'])
+app.add_url_rule('/signup', 'signup', lambda: signup(), methods=['POST'])
+app.add_url_rule('/login', 'login', lambda: login(), methods=['POST'])
+app.add_url_rule('/get_stocks', 'get_stocks', lambda: get_stocks(mongo), methods=['GET'])
+app.add_url_rule('/get_remaining_stocks', 'get_remaining_stocks', lambda: get_remaining_stocks(mongo), methods=['GET'])
+app.add_url_rule('/buy', 'buy', lambda: buy(mongo), methods=['POST'])
+app.add_url_rule('/sell', 'sell', lambda: sell(mongo), methods=['POST'])
+app.add_url_rule('/import', 'display', lambda: display(mongo), methods=['GET'])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.getenv('PORT', 10000))) 

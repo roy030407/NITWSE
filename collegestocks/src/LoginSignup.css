@@ -1,0 +1,131 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100vh;
+}
+
+.nicetext {
+  color: white;
+  width: 65%;
+  
+  height: 100vh;
+  box-sizing: border-box;
+  
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle, #00008b, #000000, #2c003e);
+  background-size: 200% 200%;
+  padding:2vw;
+
+}
+
+.cardwrapper {
+  width: 35%;
+  background-color:white;
+  height: 100vh;
+  box-sizing: border-box;
+  padding:1vw;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto; /* allow content-based height on small screens */
+  }
+
+  .nicetext,
+  .cardwrapper {
+    width: 100%;
+    height: auto;
+  }
+}
+#head{
+  display:flex;
+  justify-content: center;
+  
+  font-size: clamp(2rem, 3vw, 4rem);
+}
+form {
+  display: flex;  
+  justify-content: center;
+  flex-direction: column;
+  align-items: center; /* center inputs horizontally */
+  width: 100%;
+}
+
+.auth-card {
+  display: flex;
+  justify-content: center;   /* horizontal */
+  align-items: center;       /* vertical */
+  flex-direction: column;
+  color:black;
+  
+}
+
+.auth-card input {
+  padding: 1vh;
+  width: 80%;               /* makes input wider */
+  max-width: 500px;         /* prevents being too wide on large screens */
+  min-width: 250px;         /* ensures it's usable on small screens */
+  box-sizing: border-box;   /* includes padding in width */
+  margin-bottom: 1rem;      /* spacing between inputs */
+  
+  
+}
+.auth-card button {
+  padding: 1vh;
+  width: 10vh;
+  background-color: #4d4dff;
+  color: white;
+  border: none;
+  border-radius: 1px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.auth-card button:hover {
+  background-color: #3a3acc;
+  transform: translateY(-2px);
+}
+#home{
+  display:flex;
+  justify-content:center ;
+  font-size: clamp(2rem, 8vh, 4rem);
+  font-weight:200;
+  align-items: center;
+}
+#fullform{
+  display:flex;
+  
+  font-size:3vh;
+  z-index: 1;
+}
+#subtext{
+  font-size:2.5vh;
+  font-weight:100;
+  z-index: 1;
+}
+#home img{
+  width:25%;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 50vh; /* Full viewport height */
+}
+
+#chart {
+  width: 100%;
+  height: auto; /* Keeps aspect ratio */
+  z-index: 0;
+}
+
+
+

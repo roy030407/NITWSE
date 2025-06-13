@@ -1,0 +1,234 @@
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121a;
+  --bg-card: #1a1a24;
+  --bg-input: #242432;
+  --border-color: #2d2d3a;
+  --text-primary: #e0e0e8;
+  --text-secondary: #a0a0b0;
+  --accent-gold: #d4af37;
+  --buy-color: #2e8b57;
+  --sell-color: #c13c3c;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+ 
+  margin: 0;
+  padding: 0;
+}
+
+.dash {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.head {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+.name, .balance{
+  font-size:2rem;
+}
+h1 {
+  font-weight: 300;
+  font-size:8vh;
+  letter-spacing: 1px;
+  color: var(--accent-gold);
+  margin: 0;
+  
+}
+#balanceamount{
+  color:var(--accent-gold);
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  align-items:center;
+}
+
+.portfolio {
+  margin-bottom: 3rem;
+}
+
+.portfoliocard {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, #1e1e2a 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+
+
+.header h2 {
+  font-weight: 300;
+  font-size: 1.8rem;
+  margin: 0;
+  color: var(--accent-gold);
+}
+
+.amount h3 {
+  font-weight: 300;
+  font-size: 3.5rem;
+  margin: 1rem 0 0;
+  color: var(--text-primary);
+}
+
+.stocklistings {
+  margin-top: 2rem;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.stock-card {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, #1e1e2a 100%);
+  border-radius: 10px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stock-card:hover {
+  border-color: var(--accent-gold);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  
+}
+
+.stock-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.stock-name {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+}
+
+.stock-price {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+}
+
+.stock-owned {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.quantbox {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-family: 'Roboto Mono', monospace;
+  margin-bottom: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.quantbox:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+.buttons {
+  display:flex;
+  justify-content:space-around;
+}
+
+.buy-btn, .sell-btn {
+  padding: 0.75rem;
+  width: clamp(100px, 30vw, 150px);
+
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.buy-btn {
+  background-color: var(--buy-color);
+  color: white;
+}
+
+.buy-btn:hover {
+  background-color: #2a7a4e;
+  
+}
+
+.sell-btn {
+  background-color: var(--sell-color);
+  color: white;
+}
+
+.sell-btn:hover {
+  background-color: #b03535;
+  
+}
+
+@media (max-width: 768px) {
+  .dash {
+    padding: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  .portfoliocard {
+    padding: 1.5rem;
+  max-width: 100%;
+  }
+  
+  .amount h3 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .details {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .list {
+    grid-template-columns: 1fr;
+  }
+}
+.available{
+  display:flex;
+  justify-content:center;
+  margin:2vh;
+  font-size:2rem;
+}
